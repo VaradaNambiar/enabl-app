@@ -2,6 +2,7 @@ const POSTS_URL = "https://jsonplaceholder.typicode.com/posts";
 const PAGE_SIZE = 5;
 let posts = [];
 let currentPage = 1;
+let currentPostId =null;
 
 function renderTable(page) {
   const start = (page - 1) * PAGE_SIZE;
@@ -14,9 +15,9 @@ function renderTable(page) {
     html += `<tr>
           <td>${post.id}</td>
           <td>${post.title}</td>
-          <td><a href="https://www.wikipedia.org">${post.body}></a></td> 
+          <td><a href="postpage.html?id=${post.id}" >${post.body}></a></td> 
         </tr>`;
-  } // link is placeholder
+  }
   html += "</table>";
   document.getElementById("table-container").innerHTML = html;
 }
