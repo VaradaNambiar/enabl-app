@@ -64,7 +64,7 @@ function buildEditButtons() {
 }
 
 function createNewPost() {
-  window.location.href = "post_dialog.html";
+  window.location.href = "new_post_dialog.html";
 }
 
 function initializePostDetails() {
