@@ -1,18 +1,45 @@
 const POSTS_URL = "https://jsonplaceholder.typicode.com/posts";
 const params = new URLSearchParams(window.location.search);
 const postId = params.get("id");
-let post;
 
-fetch(`${POSTS_URL}/${postId}`)
-  .then((response) => response.json())
-  .then((data) => {
-    post = data;
-    buildPostDetails(post);
-    buildEditButtons();
-  });
+let data, post;
+let posts=[];
 
 let is_edit_button_disabled = false;
 let is_input_field = false;
+
+function editTitle() {
+  if (is_edit_button_disabled) return;
+  is_edit_button_disabled = true;
+  is_input_field = true;
+  buildPostDetails(post, is_input_field);
+  buildEditButtons();
+}
+
+function saveTitle() {
+  if (!is_edit_button_disabled) return;
+  is_edit_button_disabled = false;
+  is_input_field = false;
+  const newTitle = document.querySelector("#post-title input").value;
+  post.title = newTitle;
+  buildPostDetails(post, is_input_field);
+  buildEditButtons();
+  for (let i = 0; i <= posts.length; i++) {
+    if (posts[i].id == post.id) {
+      posts[i] = post;
+      sessionStorage.setItem("data", JSON.stringify(posts));
+
+      break;
+    }
+  }
+
+  fetch(`${POSTS_URL}/${post.id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ title: post.title }),
+  })
+    .then((response) => response.json());
+  window.location.href = "main.html";
+}
 
 function buildPostDetails(post, is_input_field) {
   let html = `<div id="post-title"><h2>`;
@@ -36,29 +63,33 @@ function buildEditButtons() {
     `;
 }
 
-function editTitle() {
- if (is_edit_button_disabled) return;
-  is_edit_button_disabled = true;
-  is_input_field = true;
-  buildPostDetails(post, is_input_field); 
-  buildEditButtons();
+function createNewPost() {
+  window.location.href = "post_dialog.html";
 }
 
-function saveTitle() {
-  if (!is_edit_button_disabled) return;
-  is_edit_button_disabled = false;
-  is_input_field = false;
-  const newTitle = document.querySelector("#post-title input").value;
-  post.title = newTitle;
-  buildPostDetails(post, is_input_field);
-  buildEditButtons();
+function initializePostDetails() {
+  data = sessionStorage.getItem("data");
 
-  fetch(`${POSTS_URL}/${post.id}`, {
-    method: "PATCH",
-    body: JSON.stringify({ title: post.title }),
-  }).then((response) => response.json())
-};
+  if (!data) {
+    let html = `<h1> Error! </h1>`;
+    document.getElementById("post-details").innerHTML = html;
+    return;
+  }
+  posts = JSON.parse(data);
+  post = null;
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i].id == postId) {
+      post = posts[i];
+      break;
+    }
+  }
+  if (!post) {
+    document.getElementById("post-details").innerHTML =
+      "<h1>Post not found!</h1>";
+  } else {
+    buildPostDetails(post);
+    buildEditButtons();
+  }
+}
 
-
-buildPostDetails(post);
-buildEditButtons();
+window.addEventListener("DOMContentLoaded", initializePostDetails);
