@@ -18,6 +18,9 @@
     <ClCompile Include="enable_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core_logic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core_logic.h">
