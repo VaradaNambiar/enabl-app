@@ -10,7 +10,7 @@ const PORT = 3001; // Node.js backend will run on port 3001
 app.use(cors({ origin: ["http://localhost:50078", "http://127.0.0.1:5500"] })); 
 app.use(express.json());
 
-const CPP_BACKEND_URL = process.env.CPP_BACKEND_URL || "http://localhost:8080";
+const CPP_BACKEND_URL = "http://localhost:8080";
 
 // POST /api/posts endpoint
 app.post("/api/posts/analyse", async (req, res) => {
