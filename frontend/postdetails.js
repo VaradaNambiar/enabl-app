@@ -36,8 +36,7 @@ function saveTitle() {
   fetch(`${POSTS_URL}/${post.id}`, {
     method: "PATCH",
     body: JSON.stringify({ title: post.title }),
-  })
-    .then((response) => response.json());
+  }).then((response) => response.json());
   window.location.href = "main.html";
 }
 
@@ -89,7 +88,29 @@ function initializePostDetails() {
   } else {
     buildPostDetails(post);
     buildEditButtons();
+    analyzePostBody(post);
   }
+}
+
+function analyzePostBody(post) {
+  fetch("http://localhost:3001/api/posts/analyse", {
+    // Node.js backend endpoint
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(post),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result)
+      document.getElementById("analysis-result").innerText = `Word Count: ${
+        result.wordCount
+      }, Sentiment: ${result.sentiments}, Keywords: ${result.keywords.join(
+        ", "
+      )}`;
+    })
+    .catch((err) => {
+      document.getElementById("analysis-result").innerText = "Analysis failed." + err.message;
+    });
 }
 
 window.addEventListener("DOMContentLoaded", initializePostDetails);
