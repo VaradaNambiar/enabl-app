@@ -3,7 +3,7 @@ const params = new URLSearchParams(window.location.search);
 const postId = params.get("id");
 
 let data, post;
-let posts=[];
+let posts = [];
 
 let is_edit_button_disabled = false;
 let is_input_field = false;
@@ -101,15 +101,19 @@ function analyzePostBody(post) {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log(result)
-      document.getElementById("analysis-result").innerText = `Word Count: ${
-        result.wordCount
-      }, Sentiment: ${result.sentiments}, Keywords: ${result.keywords.join(
-        ", "
-      )}`;
+      document.getElementById(
+        "word-count"
+      ).innerText = `Word Count: ${result.wordCount}`;
+      document.getElementById(
+        "sentiments"
+      ).innerText = `Sentiment: ${result.sentiments}`;
+      document.getElementById(
+        "keywords"
+      ).innerText = `Keywords: ${result.keywords.join(", ")}`;
     })
     .catch((err) => {
-      document.getElementById("analysis-result").innerText = "Analysis failed." + err.message;
+      document.getElementById("analysis-result").innerText =
+        "Analysis failed." + err.message;
     });
 }
 
