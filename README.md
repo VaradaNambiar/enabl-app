@@ -8,7 +8,7 @@ A full-stack web application prototype using Next.js/React.js on the frontend, w
 
 - [x] Build a responsive, mobile-friendly web app to display, update, and create post data from a mock API ([jsonplaceholder.typicode.com/posts](https://jsonplaceholder.typicode.com/posts)).
 - [x] C++ backend logic (e.g., word count, keyword extraction, sentiment analysis).
-- [ ] Integrate the backend logic to frontend.
+- [x] Integrate the backend logic to frontend.
 - [ ] Store and manage data using a SQL database.
 - [ ] Secure API endpoints with API keys.
 - [ ] Integrate ML models and MLOps workflows.
@@ -29,7 +29,7 @@ A full-stack web application prototype using Next.js/React.js on the frontend, w
   - [x] C++ core logic (e.g., analysis) 
   - [x] Expose the logic via REST API Crow tool
   - [ ] API built with Next.js API routes or Node.js
-  - [ ]SQL database (PostgreSQL/MySQL) for storing posts, sessions, and logs
+  - [ ] SQL database (PostgreSQL/MySQL) for storing posts, sessions, and logs
   - [ ] API key protection for secure endpoints
 
 - **Optional Enhancements**  
@@ -40,6 +40,4 @@ A full-stack web application prototype using Next.js/React.js on the frontend, w
 
 Note: 
 This is a work in progress app right now. 
-The backend and frontend are to be integrated, meanwhile here's a gif of how they individually work: 
-![frontend](./frontend/frontend_demo.gif)
-![backend](./backend/backend_demo.gif)
+Checkout the web app [here.](https://enabl-app-interactive.onrender.com/main.html)
